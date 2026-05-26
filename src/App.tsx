@@ -29,6 +29,16 @@ function GatekeeperPortal() {
 
               <button>Back to Landing Screen</button>
           </div>
+
+
+          {/* DASHBOARD DIV */}
+          <div>
+              <p>DASHBOARD</p>
+              <p></p>
+
+              <button>Update Password</button>
+              <button>Log Out</button>
+          </div>
       </main>
   );
 }
