@@ -1,9 +1,18 @@
-import { supabaseClient } from "./supabaseClient";
-
 function GatekeeperPortal() {
   return(
       <main>
-          <p className="font-poppins">GatekeeperPortal</p>
+          {/* LANDING SCREEN DIV */}
+          <div>
+              <p>GATEKEEPER PORTAL</p>
+
+              <p>
+                  A secure, member-only skeletop website.
+                  <br/>
+                  Experience authentication at its purest form.
+              </p>
+
+              <button>Start</button>
+          </div>
       </main>
   );
 }
