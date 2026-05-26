@@ -13,6 +13,22 @@ function GatekeeperPortal() {
 
               <button>Start</button>
           </div>
+
+
+          {/* AUTH DIV */}
+          <div>
+              <p></p>
+
+              <form>
+                  <input type="email" placeholder="Email"/>
+                  <input type="password" placeholder="Password"/>
+                  <button></button>
+              </form>
+
+              <p>Dont have an account? <span>Sign Up</span> instead.</p>
+
+              <button>Back to Landing Screen</button>
+          </div>
       </main>
   );
 }
