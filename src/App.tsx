@@ -39,6 +39,17 @@ function GatekeeperPortal() {
               <button>Update Password</button>
               <button>Log Out</button>
           </div>
+
+
+          {/* UPDATE PASSWORD DIV */}
+          <div>
+              <p>Update Password</p>
+
+              <form>
+                  <input type="password" placeholder="New Password"/>
+                  <button>Update Password</button>
+              </form>
+          </div>
       </main>
   );
 }
