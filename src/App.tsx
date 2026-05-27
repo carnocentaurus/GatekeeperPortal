@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 function GatekeeperPortal() {
+    const [currentView, setCurrentView] = useState('landing-screen-div');
+
   return(
       <main>
           {/* LANDING SCREEN DIV */}
-          <div>
+          <div className={currentView === 'landing-screen-div' ? '' : 'hidden'}>
               <p>GATEKEEPER PORTAL</p>
 
               <p>
@@ -11,12 +15,12 @@ function GatekeeperPortal() {
                   Experience authentication at its purest form.
               </p>
 
-              <button>Start</button>
+              <button onClick={() => setCurrentView('auth-div')}>Start</button>
           </div>
 
 
           {/* AUTH DIV */}
-          <div>
+          <div className={currentView === 'auth-div' ? '' : 'hidden'}>
               <p></p>
 
               <form>
@@ -27,22 +31,22 @@ function GatekeeperPortal() {
 
               <p>Dont have an account? <span>Sign Up</span> instead.</p>
 
-              <button>Back to Landing Screen</button>
+              <button onClick={() => setCurrentView('landing-screen-div')}>Back to Landing Screen</button>
           </div>
 
 
           {/* DASHBOARD DIV */}
-          <div>
+          <div className={currentView === 'dashboard-div' ? '' : 'hidden'}>
               <p>DASHBOARD</p>
               <p></p>
 
-              <button>Update Password</button>
+              <button onClick={() => setCurrentView('update-password-div')}>Update Password</button>
               <button>Log Out</button>
           </div>
 
 
           {/* UPDATE PASSWORD DIV */}
-          <div>
+          <div className={currentView === 'update-password-div' ? '' : 'hidden'}>
               <p>Update Password</p>
 
               <form>
