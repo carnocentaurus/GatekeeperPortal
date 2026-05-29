@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabaseClient } from "./supabaseClient";
 
 function GatekeeperPortal() {
     const [currentView, setCurrentView] = useState('landing-screen-div');
@@ -7,6 +8,9 @@ function GatekeeperPortal() {
     const [authBtnText, setAuthBtnText] = useState('Log In');
     const [authAccountText, setAuthAccountText] = useState('Dont have an account? ');
     const [authInsteadText, setAuthInsteadText] = useState('Sign Up');
+
+    const [emailInput, setEmailInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
 
     let isSignUp:boolean = false; // start as log in
 
@@ -25,9 +29,42 @@ function GatekeeperPortal() {
             setAuthInsteadText('Sign Up');
         }
     }
-    
+
 
     handleTextDisplay();
+
+    
+    async function handleAuth(event): Promise<void> {
+        event.preventDefault();
+
+        const email = emailInput;
+        const password = passwordInput;
+
+        if (isSignUp) {
+            if (!String(email).includes('@gmail.com')) {
+                alert('Email must contain `@gmail.com` at the end');
+                return;
+            }
+
+            const {error} = await supabaseClient.auth.signUp({email, password});
+
+            if (error) alert(`Sign up error: ${error}`);
+
+            alert('Sign up success!');
+            isSignUp = false;
+            handleTextDisplay();
+        }
+        else {
+            const {error} = await supabaseClient.auth.signInWithPassword({email, password});
+
+            if (error) {
+                alert(`Log in error: ${error}`);
+                return;
+            }
+
+            alert('Log in successful!');
+        }
+    }
 
 
     return(
@@ -56,9 +93,19 @@ function GatekeeperPortal() {
                 <p>{authTitle}</p>
 
                 <form>
-                    <input type="email" placeholder="Email"/>
-                    <input type="password" placeholder="Password"/>
-                    <button>{authBtnText}</button>
+                    <input 
+                        value={emailInput}
+                        onChange={(event) => setEmailInput(event.target.value)}
+                        type="email" 
+                        placeholder="Email"
+                    />
+                    <input 
+                        value={passwordInput}
+                        onChange={(event) => setPasswordInput(event.target.value)}
+                        type="password" 
+                        placeholder="Password"
+                    />
+                    <button onSubmit={handleAuth}>{authBtnText}</button>
                 </form>
 
                 <p>{authAccountText}<span>{authInsteadText}</span> instead.</p>
