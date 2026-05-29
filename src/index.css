@@ -28,26 +28,46 @@ body {
 @layer base {
     button {
         @apply 
-            font-poppins
-            text-lg 
-          text-[#f4f4f4] 
-          bg-[#333] 
-            border-none 
-            hover:opacity-80 
-            py-2
+        font-poppins
+        text-lg 
+      text-[#f4f4f4] 
+      bg-[#333] 
+        border-none 
+        hover:opacity-80 
+        py-1
     };
 
     div {
         @apply 
-            flex 
-            flex-col 
-            gap-y-6 
-            text-center 
+        flex 
+        flex-col 
+        gap-y-6 
+        text-center 
     };
 
     p {
         @apply 
-            font-poppins
-            text-lg
+        font-poppins
+        text-lg
+    };
+
+    form {
+        @apply
+        flex
+        flex-col
+        gap-y-[0.3rem]
+        text-center
+    };
+
+    input {
+        @apply
+        border
+        border-solid
+        border-[#333]
+        h-[2.2rem]
+        pl-2
+        overflow-x-scroll
+        text-[#333]
+        bg-[#f4f4f4]
     }
 }
