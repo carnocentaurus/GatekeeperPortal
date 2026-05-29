@@ -4,10 +4,15 @@ function GatekeeperPortal() {
     const [currentView, setCurrentView] = useState('landing-screen-div');
 
   return(
-      <main>
+      <main className="
+          flex
+          justify-center
+          items-center
+          h-screen
+      ">
           {/* LANDING SCREEN DIV */}
           <div className={currentView === 'landing-screen-div' ? '' : 'hidden'}>
-              <p>GATEKEEPER PORTAL</p>
+              <p className="font-righteous text-5xl">GATEKEEPER PORTAL</p>
 
               <p>
                   A secure, member-only skeletop website.

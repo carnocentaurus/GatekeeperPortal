@@ -18,3 +18,36 @@
   --font-poppins: "Poppins", sans-serif;
   --font-righteous: "Righteous", cursive;
 }
+
+body {
+    background-color: #cfcfcf;
+    margin: 2rem;
+    overflow-y: hidden;
+}
+
+@layer base {
+    button {
+        @apply 
+            font-poppins
+            text-lg 
+          text-[#f4f4f4] 
+          bg-[#333] 
+            border-none 
+            hover:opacity-80 
+            py-2
+    };
+
+    div {
+        @apply 
+            flex 
+            flex-col 
+            gap-y-6 
+            text-center 
+    };
+
+    p {
+        @apply 
+            font-poppins
+            text-lg
+    }
+}
