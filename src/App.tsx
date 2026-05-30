@@ -30,11 +30,8 @@ function GatekeeperPortal() {
         }
     }
 
-
-    handleTextDisplay();
-
     
-    async function handleAuth(event): Promise<void> {
+    async function handleAuth(event: React.FormEvent): Promise<void> {
         event.preventDefault();
 
         const email = emailInput;
@@ -67,6 +64,18 @@ function GatekeeperPortal() {
     }
 
 
+    async function handleLogOut(): Promise<void> {
+        const {error} = await supabaseClient.auth.signOut();
+
+        if (error) alert(`Log out error: ${error.message}`);
+
+        setEmailInput('');
+        setPasswordInput('');
+
+        setCurrentView('dashboard-div');
+    }
+
+
     return(
         <main className="
             flex
@@ -92,7 +101,7 @@ function GatekeeperPortal() {
             <div className={currentView === 'auth-div' ? '' : 'hidden'}>
                 <p>{authTitle}</p>
 
-                <form>
+                <form onSubmit={handleAuth}>
                     <input 
                         value={emailInput}
                         onChange={(event) => setEmailInput(event.target.value)}
@@ -105,7 +114,7 @@ function GatekeeperPortal() {
                         type="password" 
                         placeholder="Password"
                     />
-                    <button onSubmit={handleAuth}>{authBtnText}</button>
+                    <button>{authBtnText}</button>
                 </form>
 
                 <p>{authAccountText}<span>{authInsteadText}</span> instead.</p>
@@ -120,7 +129,7 @@ function GatekeeperPortal() {
                 <p></p>
 
                 <button onClick={() => setCurrentView('update-password-div')}>Update Password</button>
-                <button>Log Out</button>
+                <button onClick={handleLogOut}>Log Out</button>
             </div>
 
 
