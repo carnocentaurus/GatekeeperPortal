@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabaseClient } from "./supabaseClient";
 
 function GatekeeperPortal() {
@@ -18,7 +18,10 @@ function GatekeeperPortal() {
 
 
     function handleTextDisplay(): void {
-        if (isSignUp) {
+        const nextSignUpState = !isSignUp;
+        setIsSignUp(nextSignUpState);
+
+        if (nextSignUpState) {
             setAuthTitle('Create Account');
             setAuthBtnText('Create Account');
             setAuthAccountText('Already have an account? ');
@@ -74,29 +77,33 @@ function GatekeeperPortal() {
         setEmailInput('');
         setPasswordInput('');
 
-        setCurrentView('dashboard-div');
+        setCurrentView('landing-screen-div');
     }
 
 
     function handleInsteadTextClicks(): void {
-        // supposedly isSignUp = !isSignUp (wont work so will figure it out later)
+        const nextSignUpState = !isSignUp;
+        setIsSignUp(nextSignUpState);
+
         handleTextDisplay();
     }
 
 
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        if (session) {
-            setWelcomeMsg(`Welcome, ${session.user.email}!`);
-            setCurrentView('dashboard-div');
+    useEffect(() => {
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (session) {
+                setWelcomeMsg(`Welcome, ${session.user.email}!`);
+                setCurrentView('dashboard-div');
 
-            setEmailInput('');
-            setPasswordInput('');
-        }
-        else {
-            setWelcomeMsg('');
-            setCurrentView('landing-screen-div');
-        }
-    });
+                setEmailInput('');
+                setPasswordInput('');
+            }
+            else {
+                setWelcomeMsg('');
+                setCurrentView('landing-screen-div');
+            }
+        });
+    }, [])
 
 
     async function handleUpdatePassword(event: React.FormEvent): Promise<void> {
