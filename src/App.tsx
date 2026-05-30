@@ -10,6 +10,7 @@ function GatekeeperPortal() {
     const [authBtnText, setAuthBtnText] = useState('Log In');
     const [authAccountText, setAuthAccountText] = useState('Dont have an account? ');
     const [authInsteadText, setAuthInsteadText] = useState('Sign Up');
+    const [welcomeMsg, setWelcomeMsg] = useState('');
 
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
@@ -82,6 +83,21 @@ function GatekeeperPortal() {
     }
 
 
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (session) {
+            setWelcomeMsg(`Welcome, ${session.user.email}!`);
+            setCurrentView('dashboard-div');
+
+            setEmailInput('');
+            setPasswordInput('');
+        }
+        else {
+            setWelcomeMsg('');
+            setCurrentView('landing-screen-div');
+        }
+    });
+
+
     return(
         <main className="
             flex
@@ -132,7 +148,7 @@ function GatekeeperPortal() {
             {/* DASHBOARD DIV */}
             <div className={currentView === 'dashboard-div' ? '' : 'hidden'}>
                 <p>DASHBOARD</p>
-                <p></p>
+                <p>{welcomeMsg}</p>
 
                 <button onClick={() => setCurrentView('update-password-div')}>Update Password</button>
                 <button onClick={handleLogOut}>Log Out</button>
