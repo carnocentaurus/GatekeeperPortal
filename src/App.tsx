@@ -14,6 +14,7 @@ function GatekeeperPortal() {
 
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+    const [newPasswordInput, setNewPasswordInput] = useState('');
 
 
     function handleTextDisplay(): void {
@@ -98,6 +99,19 @@ function GatekeeperPortal() {
     });
 
 
+    async function handleUpdatePassword(event: React.FormEvent): Promise<void> {
+        event.preventDefault();
+
+        const newPassword = newPasswordInput;
+        const {error} = await supabaseClient.auth.updateUser({password: newPassword});
+
+        if (error) alert(`Password update failed: ${error.message}`);
+
+        alert('Password updated successfully!');
+        setNewPasswordInput('');
+    }
+
+
     return(
         <main className="
             flex
@@ -159,8 +173,13 @@ function GatekeeperPortal() {
             <div className={currentView === 'update-password-div' ? '' : 'hidden'}>
                 <p>Update Password</p>
 
-                <form>
-                    <input type="password" placeholder="New Password"/>
+                <form onSubmit={handleUpdatePassword}>
+                    <input 
+                        value={newPasswordInput}
+                        onChange={(event) => setNewPasswordInput(event.target.value)}
+                        type="password" 
+                        placeholder="New Password"
+                    />
                     <button>Update Password</button>
                 </form>
             </div>
