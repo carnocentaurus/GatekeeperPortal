@@ -4,6 +4,8 @@ import { supabaseClient } from "./supabaseClient";
 function GatekeeperPortal() {
     const [currentView, setCurrentView] = useState('landing-screen-div');
 
+    const [isSignUp, setIsSignUp] = useState(false);
+
     const [authTitle, setAuthTitle] = useState('Log into your account');
     const [authBtnText, setAuthBtnText] = useState('Log In');
     const [authAccountText, setAuthAccountText] = useState('Dont have an account? ');
@@ -11,8 +13,6 @@ function GatekeeperPortal() {
 
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
-
-    let isSignUp:boolean = false; // start as log in
 
 
     function handleTextDisplay(): void {
@@ -48,7 +48,7 @@ function GatekeeperPortal() {
             if (error) alert(`Sign up error: ${error}`);
 
             alert('Sign up success!');
-            isSignUp = false;
+            setIsSignUp(false);
             handleTextDisplay();
         }
         else {
@@ -73,6 +73,12 @@ function GatekeeperPortal() {
         setPasswordInput('');
 
         setCurrentView('dashboard-div');
+    }
+
+
+    function handleInsteadTextClicks(): void {
+        // supposedly isSignUp = !isSignUp (wont work so will figure it out later)
+        handleTextDisplay();
     }
 
 
@@ -117,7 +123,7 @@ function GatekeeperPortal() {
                     <button>{authBtnText}</button>
                 </form>
 
-                <p>{authAccountText}<span>{authInsteadText}</span> instead.</p>
+                <p>{authAccountText}<span onClick={handleInsteadTextClicks}>{authInsteadText}</span> instead.</p>
 
                 <button onClick={() => setCurrentView('landing-screen-div')}>Back to Landing Screen</button>
             </div>
