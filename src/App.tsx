@@ -128,7 +128,12 @@ function GatekeeperPortal() {
         ">
             {/* LANDING SCREEN DIV */}
             <div className={currentView === 'landing-screen-div' ? '' : 'hidden'}>
-                <p className="font-righteous text-5xl">GATEKEEPER PORTAL</p>
+                <p className="
+                    font-righteous 
+                    text-5xl md:text-8xl
+                ">
+                    GATEKEEPER PORTAL
+                </p>
 
                 <p>
                     A secure, member-only skeletop website.
@@ -160,7 +165,7 @@ function GatekeeperPortal() {
                     <button>{authBtnText}</button>
                 </form>
 
-                <p>{authAccountText}<span onClick={handleInsteadTextClicks}>{authInsteadText}</span> instead.</p>
+                <p>{authAccountText}<span onClick={handleInsteadTextClicks} className="text-blue-700">{authInsteadText}</span> instead.</p>
 
                 <button onClick={() => setCurrentView('landing-screen-div')}>Back to Landing Screen</button>
             </div>
