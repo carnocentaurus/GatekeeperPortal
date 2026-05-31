@@ -128,10 +128,7 @@ function GatekeeperPortal() {
         ">
             {/* LANDING SCREEN DIV */}
             <div className={currentView === 'landing-screen-div' ? '' : 'hidden'}>
-                <p className="
-                    font-righteous 
-                    text-5xl md:text-8xl
-                ">
+                <p className="font-righteous text-5xl md:text-8xl">
                     GATEKEEPER PORTAL
                 </p>
 
@@ -173,7 +170,7 @@ function GatekeeperPortal() {
 
             {/* DASHBOARD DIV */}
             <div className={currentView === 'dashboard-div' ? '' : 'hidden'}>
-                <p>DASHBOARD</p>
+                <p className="font-righteous text-5xl md:text-8xl">DASHBOARD</p>
                 <p>{welcomeMsg}</p>
 
                 <button onClick={() => setCurrentView('update-password-div')}>Update Password</button>
