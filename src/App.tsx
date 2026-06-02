@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
 import { supabaseClient } from "./supabaseClient";
+import { type JSX } from "react";
 
-function GatekeeperPortal() {
-    const [currentView, setCurrentView] = useState('landing-screen-div');
+function GatekeeperPortal(): JSX.Element {
+    const [currentView, setCurrentView] = useState<string>('landing-screen-div');
 
-    const [isSignUp, setIsSignUp] = useState(false);
+    const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
-    const [authTitle, setAuthTitle] = useState('Log into your account');
-    const [authBtnText, setAuthBtnText] = useState('Log In');
-    const [authAccountText, setAuthAccountText] = useState('Dont have an account? ');
-    const [authInsteadText, setAuthInsteadText] = useState('Sign Up');
-    const [welcomeMsg, setWelcomeMsg] = useState('');
+    const [authTitle, setAuthTitle] = useState<string>('Log into your account');
+    const [authBtnText, setAuthBtnText] = useState<string>('Log In');
+    const [authAccountText, setAuthAccountText] = useState<string>('Dont have an account? ');
+    const [authInsteadText, setAuthInsteadText] = useState<string>('Sign Up');
+    const [welcomeMsg, setWelcomeMsg] = useState<string>('');
 
-    const [emailInput, setEmailInput] = useState('');
-    const [passwordInput, setPasswordInput] = useState('');
-    const [newPasswordInput, setNewPasswordInput] = useState('');
+    const [emailInput, setEmailInput] = useState<string>('');
+    const [passwordInput, setPasswordInput] = useState<string>('');
+    const [newPasswordInput, setNewPasswordInput] = useState<string>('');
 
 
     function handleTextDisplay(): void {
-        const nextSignUpState = !isSignUp;
+        const nextSignUpState:boolean = !isSignUp;
         setIsSignUp(nextSignUpState);
 
         if (nextSignUpState) {
@@ -36,11 +37,11 @@ function GatekeeperPortal() {
     }
 
     
-    async function handleAuth(event: React.FormEvent): Promise<void> {
+    async function handleAuth(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
-        const email = emailInput;
-        const password = passwordInput;
+        const email:string = emailInput;
+        const password:string = passwordInput;
 
         if (isSignUp) {
             if (!String(email).includes('@gmail.com')) {
@@ -82,7 +83,7 @@ function GatekeeperPortal() {
 
 
     function handleInsteadTextClicks(): void {
-        const nextSignUpState = !isSignUp;
+        const nextSignUpState:boolean = !isSignUp;
         setIsSignUp(nextSignUpState);
 
         handleTextDisplay();
@@ -90,7 +91,7 @@ function GatekeeperPortal() {
 
 
     useEffect(() => {
-        supabaseClient.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange((event:string, session:any) => {
             if (session) {
                 setWelcomeMsg(`Welcome, ${session.user.email}!`);
                 setCurrentView('dashboard-div');
@@ -106,10 +107,10 @@ function GatekeeperPortal() {
     }, [])
 
 
-    async function handleUpdatePassword(event: React.FormEvent): Promise<void> {
+    async function handleUpdatePassword(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
 
-        const newPassword = newPasswordInput;
+        const newPassword:string = newPasswordInput;
         const {error} = await supabaseClient.auth.updateUser({password: newPassword});
 
         if (error) alert(`Password update failed: ${error.message}`);
