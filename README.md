@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# GatekeeperPortal
+A secure, member-only skeleton website built with React, Tailwind CSS, and TypeScript. It utilizes Supabase for authentication and user management, providing a "pure" authentication experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- Secure user registration and login
+- Email validation (specifically for @gmail.com addresses)
+- Real-time authentication state handling
+- Password update functionality
+- Clean, responsive dashboard interface
+- Lightweight and fast performance
 
-Currently, two official plugins are available:
+## Tech Stack
+| Technology | Purpose |
+|------------|---------|
+| React 19 | UI components and state management |
+| TypeScript | Type safety and improved developer experience |
+| Vite | Fast build tool and development server |
+| Tailwind CSS 4 | Modern utility-first styling |
+| Supabase | Backend-as-a-Service for Authentication |
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How It Works
+1. Users begin at the landing screen and proceed to the authentication portal.
+2. The application provides both Log In and Sign Up views:
+   - Registration includes a client-side check for `@gmail.com` domains.
+   - Authentication is handled securely through the `supabaseClient`.
+3. Upon successful authentication, the `onAuthStateChange` listener updates the view to the Dashboard.
+4. The Dashboard displays a personalized welcome message and provides options to:
+   - Update the account password.
+   - Securely log out and clear the session.
+5. React state management ensures seamless transitions between different views without page reloads.
 
-## React Compiler
+## Screenshots
+- [Landing Screen](./src/assets/screenshots/landingScreen.png)
+- [Authentication Screen](./src/assets/screenshots/authScreen.png)
+- [Dashboard](./src/assets/screenshots/dashboard.png)
+- [Update Password Screen](./src/assets/screenshots/updatePasswordScreen.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to Run
+1. Navigate to the project folder:
+   ```bash
+   cd GatekeeperPortal
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up environment variables (Create a `.env.local` file):
+   ```
+   VITE_SUPABASE_PROJECT_URL=your_project_url
+   VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open the provided local URL in your browser.
 
-## Expanding the ESLint configuration
+## Future Improvements
+- Multi-factor authentication (MFA)
+- User profile management (avatar, display name)
+- Password recovery/reset flow via email
+- Role-based access control (RBAC)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## API Reference
+This project utilizes the [@supabase/supabase-js](https://supabase.com/docs/reference/javascript/introduction) library for its core authentication functionality.
